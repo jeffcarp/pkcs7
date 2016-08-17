@@ -1,6 +1,6 @@
 [package]
 name = "pkcs7"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Jeff Carpenter <gcarpenterv@gmail.com>"]
 description = "PKCS #7 padding"
 repository = "https://github.com/jeffcarp/pkcs7"
