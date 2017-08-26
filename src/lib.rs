@@ -69,4 +69,102 @@ mod tests {
 
         assert_eq!(actual, expected);
     }
+
+    #[test]
+    fn pkcs7_stackexchange_1() {
+        let expected = [
+            0x48,
+            0x65,
+            0x6C,
+            0x6C,
+            0x6F,
+            0x2C,
+            0x20,
+            0x57,
+            0x6F,
+            0x72,
+            0x6C,
+            0x64,
+            0x21,
+        ];
+
+        let mut buffer = expected.to_vec();
+        pad(&mut buffer, 16);
+
+        assert_eq!(
+            buffer.as_slice(),
+            [
+                0x48,
+                0x65,
+                0x6C,
+                0x6C,
+                0x6F,
+                0x2C,
+                0x20,
+                0x57,
+                0x6F,
+                0x72,
+                0x6C,
+                0x64,
+                0x21,
+                0x03,
+                0x03,
+                0x03
+            ].as_ref()
+        );
+
+        un_pad(&mut buffer);
+        assert_eq!(buffer.as_slice(), expected.as_ref());
+    }
+
+    #[test]
+    fn pkcs7_stackexchange_2() {
+        let expected = [
+            0x48,
+            0x65,
+            0x6C,
+            0x6C,
+            0x6F,
+            0x2C,
+            0x20,
+            0x57,
+            0x6F,
+            0x72,
+            0x6C,
+            0x64,
+            0x21,
+        ];
+
+        let mut buffer = expected.to_vec();
+        pad(&mut buffer, 20);
+
+        assert_eq!(
+            buffer.as_slice(),
+            [
+                0x48,
+                0x65,
+                0x6C,
+                0x6C,
+                0x6F,
+                0x2C,
+                0x20,
+                0x57,
+                0x6F,
+                0x72,
+                0x6C,
+                0x64,
+                0x21,
+                0x07,
+                0x07,
+                0x07,
+                0x07,
+                0x07,
+                0x07,
+                0x07
+            ].as_ref()
+        );
+
+        un_pad(&mut buffer);
+        assert_eq!(buffer.as_slice(), expected.as_ref());
+    }
 }
