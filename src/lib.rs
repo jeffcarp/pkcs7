@@ -56,14 +56,14 @@ mod tests {
 
     #[test]
     fn pkcs7_u8_overflow() {
-        const BLOCK_SIZE: u8 = 10;
+        const BLOCK_SIZE: usize = 11;
 
         let expected = vec![0; 1_000_000];
 
         let mut actual = expected.clone();
-        pad(&mut actual, BLOCK_SIZE);
+        pad(&mut actual, BLOCK_SIZE as u8);
 
-        assert!(actual.len() % BLOCK_SIZE as usize == 0);
+        assert!(actual.len() % BLOCK_SIZE == 0);
 
         un_pad(&mut actual);
 
