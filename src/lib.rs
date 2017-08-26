@@ -51,4 +51,20 @@ mod tests {
         let expected: Vec<u8> = vec![0, 1, 2, 3];
         assert_eq!(actual, expected);
     }
+
+    #[test]
+    fn pkcs7_u8_overflow() {
+        const BLOCK_SIZE: usize = 10;
+
+        let expected = vec![0; 1_000_000];
+
+        let mut actual = expected.clone();
+        pad(&mut actual, BLOCK_SIZE);
+
+        assert!(actual.len() % BLOCK_SIZE == 0);
+
+        un_pad(&mut actual);
+
+        assert_eq!(actual, expected);
+    }
 }
