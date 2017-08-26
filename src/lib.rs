@@ -1,6 +1,8 @@
 use std::iter::repeat;
 
-pub fn pad(buffer: &mut Vec<u8>, block_size: usize) {
+pub fn pad(buffer: &mut Vec<u8>, block_size: u8) {
+    let block_size = block_size as usize;
+
     let padding_size = block_size - (buffer.len() % block_size);
     buffer.extend(repeat(padding_size as u8).take(padding_size));
 }
@@ -54,14 +56,14 @@ mod tests {
 
     #[test]
     fn pkcs7_u8_overflow() {
-        const BLOCK_SIZE: usize = 10;
+        const BLOCK_SIZE: u8 = 10;
 
         let expected = vec![0; 1_000_000];
 
         let mut actual = expected.clone();
         pad(&mut actual, BLOCK_SIZE);
 
-        assert!(actual.len() % BLOCK_SIZE == 0);
+        assert!(actual.len() % BLOCK_SIZE as usize == 0);
 
         un_pad(&mut actual);
 
