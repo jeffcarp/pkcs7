@@ -63,7 +63,7 @@ mod tests {
         let mut actual = expected.clone();
         pad(&mut actual, BLOCK_SIZE as u8);
 
-        assert!(actual.len() % BLOCK_SIZE == 0);
+        assert_eq!(actual.len() % BLOCK_SIZE, 0);
 
         un_pad(&mut actual);
 
