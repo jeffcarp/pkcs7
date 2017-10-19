@@ -22,7 +22,7 @@ pub fn pad(buffer: &mut Vec<u8>, block_size: u8) {
     let block_size = block_size as usize;
 
     let padding_size = block_size - (buffer.len() % block_size);
-    buffer.extend(repeat(padding_size as u8).take(padding_size));
+    buffer.resize(buffer.len() + padding_size, padding_size as u8);
 }
 
 pub fn un_pad(buffer: &mut Vec<u8>) {
